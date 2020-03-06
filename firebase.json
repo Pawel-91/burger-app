@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "burger-app-psup",
     "public": "build",
     "ignore": [
       "firebase.json",
