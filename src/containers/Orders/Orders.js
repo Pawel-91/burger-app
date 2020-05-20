@@ -9,7 +9,8 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Orders extends Component {
     componentDidMount () {
-        this.props.onFetchOrders();
+        console.log(this.props.userId);
+        this.props.onFetchOrders(this.props.token, this.props.userId);
     }
 
     render () {
@@ -21,7 +22,8 @@ class Orders extends Component {
                 {this.props.orders.map(order => 
                     <Order key={order.id}
                      ingredients={order.ingredients}
-                     price={order.price}/> )}
+                     price={order.price}
+                     user={this.props.userId}/> )}
              </div>
             ) : 'Orders loading failed!';
         }
@@ -33,13 +35,15 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.order.loading,
-        orders: state.order.orders
+        orders: state.order.orders,
+        token: state.auth.token,
+        userId: state.auth.userId
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOrders: () => dispatch(actions.fetchOrders())
+        onFetchOrders: (token, userId) => dispatch(actions.fetchOrders(token, userId))
     };
 }
 
